@@ -42,7 +42,10 @@ ADD --chmod=644 \
     $REPO_OSX_KVM/$VERSION_OSX_KVM/OVMF_VARS-1024x768.fd \
     $REPO_OSX_KVM/$VERSION_OSX_KVM/OVMF_VARS-1920x1080.fd /usr/share/OVMF/
 
-ADD $REPO_KVM_OPENCORE/releases/download/$VERSION_KVM_OPENCORE/OpenCore-$VERSION_KVM_OPENCORE.iso.gz /opencore.iso.gz
+RUN apt-get update && apt-get install -y curl && \
+    curl -L --retry 5 \
+    -o /opencore.iso.gz \
+    https://github.com/thenickdude/KVM-Opencore/releases/download/v21/OpenCore-v21.iso.gz
 
 VOLUME /storage
 EXPOSE 5900 8006
